@@ -1,0 +1,22 @@
+{# templates/idea/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Ideas List{% endblock %}
+
+{% block body %}
+    <h1>Ideas List</h1>
+
+    <a href="{{ path('idea_new') }}" class="btn btn-primary">Create New Idea</a>
+
+    <ul>
+        {% for idea in ideas %}
+            <li>
+                <a href="{{ path('idea_show', {'id': idea.id}) }}">
+                    {{ idea.titleOfVC }} ({{ idea.projectNumber }})
+                </a>
+            </li>
+        {% else %}
+            <li>No ideas found</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

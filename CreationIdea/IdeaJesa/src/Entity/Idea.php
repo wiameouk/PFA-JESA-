@@ -44,10 +44,7 @@ class Idea
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
-
-    /**
-     * @var Collection<int, User>
-     */
+    
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'idea_user')]
     private Collection $users;
 

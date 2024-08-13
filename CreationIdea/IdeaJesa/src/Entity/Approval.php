@@ -26,10 +26,7 @@ class Approval
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'Appoval_User')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'approvals')]
     private Collection $users;
 
     public function __construct()
@@ -75,33 +72,11 @@ class Approval
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
     public function getUsers(): Collection
     {
         return $this->users;
     }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addAppovalUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeAppovalUser($this);
-        }
-
-        return $this;
-    }
-
+    
 
 
 }

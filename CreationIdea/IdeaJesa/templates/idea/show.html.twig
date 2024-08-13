@@ -1,0 +1,39 @@
+{# templates/idea/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Idea Details{% endblock %}
+
+{% block body %}
+    <h1>Idea Details</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Title</dt>
+        <dd class="col-sm-9">{{ idea.titleOfVC }}</dd>
+
+        <dt class="col-sm-3">Project Number</dt>
+        <dd class="col-sm-9">{{ idea.projectNumber }}</dd>
+
+        <dt class="col-sm-3">Confidentiality</dt>
+        <dd class="col-sm-9">{{ idea.confidentiality ? 'Yes' : 'No' }}</dd>
+
+        <dt class="col-sm-3">Project Phase</dt>
+        <dd class="col-sm-9">{{ idea.projectPhase.name }}</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">{{ idea.description }}</dd>
+
+        <dt class="col-sm-3">Idea Source</dt>
+        <dd class="col-sm-9">{{ idea.ideaSource.name }}</dd>
+
+        <dt class="col-sm-3">Idea Status</dt>
+        <dd class="col-sm-9">{{ idea.ideaStatus.name }}</dd>
+
+        <dt class="col-sm-3">Sectors and Programs</dt>
+        <dd class="col-sm-9">{{ idea.sectorsAndPrograms.name }}</dd>
+
+        <dt class="col-sm-3">Created At</dt>
+        <dd class="col-sm-9">{{ idea.createdAt ? idea.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</dd>
+    </dl>
+
+    <a href="{{ path('idea_list') }}" class="btn btn-secondary">Back to list</a>
+{% endblock %}
