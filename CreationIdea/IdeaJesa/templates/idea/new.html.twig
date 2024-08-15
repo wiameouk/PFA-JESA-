@@ -1,13 +1,14 @@
-{# templates/idea/new.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Create New Idea{% endblock %}
+{% block title %}Create new Idea{% endblock %}
 
 {% block body %}
-    <h1>Create New Idea</h1>
+    <h1>Create new Idea</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-primary">Submit</button>
+    {{ form_widget(form) }}
+    <button type="submit">Save</button>
     {{ form_end(form) }}
+
+    <a href="{{ path('idea_index') }}">Back to list</a>
 {% endblock %}

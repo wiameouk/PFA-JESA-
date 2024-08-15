@@ -1,0 +1,79 @@
+/* Appliquer un style global au formulaire */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour les champs de texte et les zones de texte */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Style pour les champs de sélection */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Style pour les cases à cocher et les boutons radio */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Style pour les labels */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Style pour les boutons de soumission */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Espacement entre les groupes de champs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Ajouter de l'espace entre les options de sélection multiple */
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    margin-bottom: 10px;
+}
+
+/* Style pour les champs en mode "readonly" */
+input[readonly] {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+}

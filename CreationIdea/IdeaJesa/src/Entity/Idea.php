@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Entity;
-use App\Repository\IdeaRepository;
 
+use App\Repository\IdeaRepository;
 use App\Enum\IdeaSource;
 use App\Enum\IdeaStatus;
 use App\Enum\ProjectPhase;
@@ -31,6 +30,7 @@ class Idea
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
+
     #[ORM\Column(type: 'string', enumType: IdeaSource::class)]
     private ?IdeaSource $ideaSource = null;
 
@@ -39,12 +39,16 @@ class Idea
 
     #[ORM\Column(type: 'string', enumType: SectorsAndPrograms::class)]
     private ?SectorsAndPrograms $sectorsAndPrograms = null;
+
     #[ORM\Column(type: 'json')]
     private array $typeOfVC = [];
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $department = null;
+
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
-    
+
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'idea_user')]
     private Collection $users;
 
@@ -54,12 +58,16 @@ class Idea
     #[ORM\Column(length: 255)]
     private ?string $titleOfVC = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $customerName = null;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
     }
-    
+
+    // Getters et setters pour les propriétés existantes
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,27 +117,30 @@ class Idea
         return $this;
     }
 
-    public function getsectorsAndPrograms(): ?SectorsAndPrograms
+    public function getSectorsAndPrograms(): ?SectorsAndPrograms
     {
         return $this->sectorsAndPrograms;
     }
 
-    public function setsectorsAndPrograms(?SectorsAndPrograms $sectorsAndPrograms): static
+    public function setSectorsAndPrograms(?SectorsAndPrograms $sectorsAndPrograms): static
     {
         $this->sectorsAndPrograms = $sectorsAndPrograms;
         return $this;
     }
-
-    public function gettypeOfVC(): array
+    public function getTypeOfVC(): array
     {
-            return $this->typeOfVC;
+        return array_map(fn($type) => TypesOfValueCreation::from($type), $this->typeOfVC);
     }
 
-    public function settypeOfVC(array $typeOfVC): static
+public function setTypeOfVC(array $typeOfVC): static
     {
-        $this->typeOfVC = $typeOfVC;
+        $this->typeOfVC = array_map(fn($type) => $type->value, $typeOfVC);
+
         return $this;
     }
+
+
+   
     public function getIdeaSource(): ?IdeaSource
     {
         return $this->ideaSource;
@@ -140,6 +151,7 @@ class Idea
         $this->ideaSource = $ideaSource;
         return $this;
     }
+
     public function getIdeaStatus(): ?IdeaStatus
     {
         return $this->ideaStatus;
@@ -197,7 +209,6 @@ class Idea
     public function setApproIdea(?Approval $Appro_idea): static
     {
         $this->Appro_idea = $Appro_idea;
-
         return $this;
     }
 
@@ -209,10 +220,30 @@ class Idea
     public function setTitleOfVC(string $titleOfVC): static
     {
         $this->titleOfVC = $titleOfVC;
-
         return $this;
     }
 
-    
-    
+    public function getDepartment(): ?string
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?string $department): static
+    {
+        $this->department = $department;
+        return $this;
+    }
+
+    // Getters et setters pour les nouveaux champs
+
+    public function getCustomerName(): ?string
+    {
+        return $this->customerName;
+    }
+
+    public function setCustomerName(?string $customerName): static
+    {
+        $this->customerName = $customerName;
+        return $this;
+    }
 }

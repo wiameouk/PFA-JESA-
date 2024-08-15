@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Approval List{% endblock %}
+
+{% block body %}
+    <h1>Approval List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Date of Approval</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for approval in approvals %}
+                <tr>
+                    <td>{{ approval.id }}</td>
+                    <td>{{ approval.approvalStatus }}</td>
+                    <td>{{ approval.dateApprouval ? approval.dateApprouval|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('approval_edit', {'id': approval.id}) }}">edit</a>
+                        <form method="post" action="{{ path('approval_delete', {'id': approval.id}) }}" style="display:inline-block;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ approval.id) }}">
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('approval_new') }}" class="btn btn-primary">Create new</a>
+{% endblock %}

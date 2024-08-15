@@ -8,4 +8,5 @@ enum TypesOfValueCreation: string
     case SUSTAINABILITY = 'SUSTAINABILITY';
     case LIFE = 'LIFE';
     case INDIRECT = 'INDIRECT';
+  
 }
