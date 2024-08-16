@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form;
+
 use App\Entity\Idea;
 use App\Enum\IdeaSource;
 use App\Enum\IdeaStatus;
@@ -23,15 +24,15 @@ class IdeaType extends AbstractType
             ->add('projectNumber', TextType::class, [
                 'label' => 'Project Number',
             ])
-           ->add('confidentiality', ChoiceType::class, [
-    'label' => 'Confidentiality',
-    'choices' => [
-        'Yes' => true,
-        'No' => false,
-    ],
-    'expanded' => false, // si vous voulez un menu déroulant
-    'multiple' => false, // pour s'assurer qu'un seul choix est sélectionné
-])
+            ->add('confidentiality', ChoiceType::class, [
+                'label' => 'Confidentiality',
+                'choices' => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+                'expanded' => false,
+                'multiple' => false,
+            ])
             ->add('projectPhase', ChoiceType::class, [
                 'label' => 'Project Phase',
                 'choices' => $this->getChoices(ProjectPhase::cases()),
@@ -54,8 +55,8 @@ class IdeaType extends AbstractType
             ->add('typeOfVC', ChoiceType::class, [
                 'label' => 'Type of Value Creation',
                 'choices' => $this->getChoices(TypesOfValueCreation::cases()),
-                'multiple' => true,  // Permet la sélection multiple
-                'expanded' => true,  // Affiche les options comme des cases à cocher (facultatif)
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('titleOfVC', TextType::class, [
                 'label' => 'Title of Value Creation',
@@ -64,11 +65,11 @@ class IdeaType extends AbstractType
                 'label' => 'Department',
                 'required' => false,
             ])
-            ->add('createdAt', DateType::class, [  // Utiliser DateType pour le champ de date
+            ->add('createdAt', DateType::class, [
                 'label' => 'Created At',
                 'required' => false,
-                'widget' => 'single_text', // Utiliser un seul champ pour le calendrier
-                'attr' => ['class' => 'form-control'], // Ajoutez une classe CSS si nécessaire
+                'widget' => 'single_text',
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('customerName', TextType::class, [
                 'label' => 'Customer Name',

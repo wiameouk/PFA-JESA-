@@ -15,28 +15,27 @@ class IdeaController extends AbstractController
     #[Route('/ideas', name: 'idea_index', methods: ['GET'])]
     public function index(IdeaRepository $ideaRepository): Response
     {
-        $ideas = $ideaRepository->findAll();
         return $this->render('idea/index.html.twig', [
-            'ideas' => $ideas,
+            'ideas' => $ideaRepository->findAll(),
         ]);
     }
 
     #[Route('/ideas/new', name: 'idea_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($idea);
-            $entityManager->flush();
+            $em->persist($idea);
+            $em->flush();
 
             return $this->redirectToRoute('idea_index');
         }
 
         return $this->render('idea/new.html.twig', [
-            'idea' => $idea,
             'form' => $form->createView(),
         ]);
     }
@@ -50,29 +49,30 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/ideas/{id}/edit', name: 'idea_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Idea $idea, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Idea $idea, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(IdeaType::class, $idea);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $em->flush();
 
             return $this->redirectToRoute('idea_index');
         }
 
         return $this->render('idea/edit.html.twig', [
-            'idea' => $idea,
             'form' => $form->createView(),
+            'idea' => $idea,
         ]);
     }
 
-    #[Route('/ideas/{id}/delete', name: 'idea_delete', methods: ['POST'])]
-    public function delete(Request $request, Idea $idea, EntityManagerInterface $entityManager): Response
+    #[Route('/ideas/{id}', name: 'idea_delete', methods: ['POST'])]
+    public function delete(Request $request, Idea $idea, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete'.$idea->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($idea);
-            $entityManager->flush();
+            $em->remove($idea);
+            $em->flush();
         }
 
         return $this->redirectToRoute('idea_index');

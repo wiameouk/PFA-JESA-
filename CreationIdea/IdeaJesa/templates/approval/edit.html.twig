@@ -3,17 +3,13 @@
 {% block title %}Edit Approval{% endblock %}
 
 {% block body %}
-    <h1>Edit Approval</h1>
+<h1>Edit Approval</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-success">Save changes</button>
-    {{ form_end(form) }}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">Save changes</button>
+{{ form_end(form) }}
 
-    <a href="{{ path('approval_index') }}" class="btn btn-secondary">Back to list</a>
-
-    <form method="post" action="{{ path('approval_delete', {'id': approval.id}) }}" style="display:inline-block;">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ approval.id) }}">
-        <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-    </form>
+<a href="{{ path('approval_index') }}">Back to list</a>
+<a href="{{ path('approval_show', {'id': approval.id}) }}">Cancel</a>
 {% endblock %}

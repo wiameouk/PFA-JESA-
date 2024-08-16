@@ -3,34 +3,37 @@
 {% block title %}Approval List{% endblock %}
 
 {% block body %}
-    <h1>Approval List</h1>
+<h1>Approval List</h1>
 
-    <table class="table">
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Approval Status</th>
+            <th>Date Approval</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for approval in approvals %}
             <tr>
-                <th>ID</th>
-                <th>Status</th>
-                <th>Date of Approval</th>
-                <th>Actions</th>
+                <td>{{ approval.id }}</td>
+                <td>{{ approval.approvalStatus }}</td>
+                <td>{{ approval.DateApprouval ? approval.DateApprouval|date('Y-m-d') : '' }}</td>
+                <td>{{ approval.createdAt ? approval.createdAt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('approval_show', {'id': approval.id}) }}">View</a>
+                    <a href="{{ path('approval_edit', {'id': approval.id}) }}">Edit</a>
+                    <form method="post" action="{{ path('approval_delete', {'id': approval.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ approval.id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            {% for approval in approvals %}
-                <tr>
-                    <td>{{ approval.id }}</td>
-                    <td>{{ approval.approvalStatus }}</td>
-                    <td>{{ approval.dateApprouval ? approval.dateApprouval|date('Y-m-d') : '' }}</td>
-                    <td>
-                        <a href="{{ path('approval_edit', {'id': approval.id}) }}">edit</a>
-                        <form method="post" action="{{ path('approval_delete', {'id': approval.id}) }}" style="display:inline-block;">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ approval.id) }}">
-                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')">delete</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
 
-    <a href="{{ path('approval_new') }}" class="btn btn-primary">Create new</a>
+<a href="{{ path('approval_new') }}">Create new Approval</a>
 {% endblock %}
